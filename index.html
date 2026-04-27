@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neuronest | Study Dashboard</title>
+  <meta
+    name="description"
+    content="Generate study plans, track progress, review today's tasks, and manage weak areas in one dashboard."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="study-background" aria-hidden="true">
+    <div class="study-orb orb-one"></div>
+    <div class="study-orb orb-two"></div>
+    <div class="study-orb orb-three"></div>
+    <div class="study-grid"></div>
+    <div class="study-doodle doodle-book"></div>
+    <div class="study-doodle doodle-pencil"></div>
+    <div class="study-doodle doodle-lamp"></div>
+    <div class="study-doodle doodle-equation">E = mc^2</div>
+    <div class="study-doodle doodle-card"></div>
+  </div>
+
+  <div class="page-shell">
+    <header class="app-header">
+      <nav class="topbar">
+        <div class="brand">
+          <span class="brand-mark">N</span>
+          <span>Neuronest</span>
+        </div>
+
+        <div class="topbar-nav">
+          <button type="button" class="nav-item active" data-page="dashboard">Dashboard</button>
+          <button type="button" class="nav-item" data-page="generate">Generate Plan</button>
+          <button type="button" class="nav-item" data-page="progress">Progress</button>
+          <button type="button" class="nav-item" data-page="notes">Notes</button>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="nav-metrics">
+            <article class="nav-metric">
+              <span>Today's Plan</span>
+              <strong id="nav-today-count">0</strong>
+            </article>
+            <article class="nav-metric">
+              <span>Completed</span>
+              <strong id="nav-completed-count">0</strong>
+            </article>
+            <article class="nav-metric">
+              <span>Progress</span>
+              <strong id="nav-progress-rate">0%</strong>
+            </article>
+          </div>
+
+          <button type="button" class="ghost-link" id="nav-login">Login</button>
+          <button type="button" class="primary-button" id="nav-signup">Sign Up</button>
+
+          <div id="nav-user-badge" class="nav-user-badge hidden">
+            <span id="nav-user-name">Account</span>
+            <button type="button" id="nav-logout" class="ghost-link nav-logout-button">Logout</button>
+          </div>
+        </div>
+      </nav>
+
+      <section class="hero-panel">
+        <div>
+          <h1 id="hero-greeting">Organize your study life like a real workspace.</h1>
+          <p class="hero-text">
+            Generate plans, see today's tasks, track completion, spot weak areas,
+            and keep your notes together in one professional dashboard.
+          </p>
+          <div class="quick-actions">
+            <button type="button" class="primary-button quick-action-button" data-page-target="generate">Generate Plan</button>
+            <button type="button" class="ghost-link quick-action-button" id="quick-add-task">Add Task</button>
+            <button type="button" class="ghost-link quick-action-button" id="quick-complete-task">Complete</button>
+          </div>
+        </div>
+
+        <div class="hero-summary">
+          <article>
+            <span>Focus Subject</span>
+            <strong id="hero-focus">No plan yet</strong>
+          </article>
+          <article>
+            <span>Next Task</span>
+            <strong id="hero-next-task">Start by generating a plan</strong>
+          </article>
+          <article>
+            <span>Status</span>
+            <strong id="hero-status">Ready to start</strong>
+          </article>
+        </div>
+      </section>
+    </header>
+
+    <main class="app-main">
+      <section id="page-auth" class="app-page">
+        <div class="auth-landing">
+          <section class="auth-landing-copy panel">
+            <p class="eyebrow">Welcome</p>
+            <h2>Start with your account</h2>
+            <p class="page-note">
+              Login to continue your study dashboard, or create a new account to generate plans,
+              track progress, and save notes.
+            </p>
+            <div class="auth-landing-points">
+              <article>
+                <strong>Study dashboard</strong>
+                <span>See today's tasks, progress, and focus areas.</span>
+              </article>
+              <article>
+                <strong>Plan generator</strong>
+                <span>Create a structured roadmap in a few steps.</span>
+              </article>
+              <article>
+                <strong>Saved notes</strong>
+                <span>Keep reflections and revision points with your account.</span>
+              </article>
+            </div>
+          </section>
+
+          <section class="auth-entry panel">
+            <div class="page-heading compact">
+              <div>
+                <p class="eyebrow">Account</p>
+                <h2>Login or Sign Up</h2>
+              </div>
+            </div>
+
+            <div class="auth-tabs" role="tablist" aria-label="Authentication options">
+              <button type="button" class="auth-tab" data-auth-view="signup">Sign Up</button>
+              <button type="button" class="auth-tab active" data-auth-view="login">Login</button>
+            </div>
+
+            <form id="signup-form-page" class="auth-form-page hidden">
+              <label>
+                Full name
+                <input type="text" id="signup-name-page" name="name" placeholder="e.g. Aisha Khan" required>
+              </label>
+              <label>
+                Email
+                <input type="email" id="signup-email-page" name="email" placeholder="you@example.com" required>
+              </label>
+              <label>
+                Password
+                <input type="password" id="signup-password-page" name="password" placeholder="Create a password" minlength="6" required>
+              </label>
+              <label>
+                Study level
+                <select id="signup-level-page" name="level">
+                  <option value="School">School</option>
+                  <option value="College">College</option>
+                  <option value="University">University</option>
+                  <option value="Self-paced learner">Self-paced learner</option>
+                </select>
+              </label>
+              <button type="submit" class="primary-button full-width">Create account</button>
+            </form>
+
+            <form id="login-form-page" class="auth-form-page">
+              <label>
+                Email
+                <input type="email" id="login-email-page" name="email" placeholder="you@example.com" required>
+              </label>
+              <label>
+                Password
+                <input type="password" id="login-password-page" name="password" placeholder="Enter your password" required>
+              </label>
+              <button type="submit" class="primary-button full-width">Login</button>
+            </form>
+
+            <p id="auth-page-message" class="auth-message" aria-live="polite"></p>
+          </section>
+        </div>
+      </section>
+
+      <section id="page-dashboard" class="app-page">
+        <div class="page-heading">
+          <div>
+            <h2>Study Overview</h2>
+            <p id="planner-user-note" class="page-note">Create an account or login from the navbar to unlock your personalized study dashboard.</p>
+          </div>
+        </div>
+
+        <div class="dashboard-shell">
+          <section class="dashboard-column">
+            <article class="panel summary-panel">
+              <div class="block-head">
+                <h3>Overall Progress</h3>
+                <span id="progress-pill" class="progress-pill">0%</span>
+              </div>
+              <div class="progress-meter large">
+                <div id="progress-fill" class="progress-fill"></div>
+              </div>
+              <div class="progress-icons">
+                <span class="progress-icon progress-icon-soft"></span>
+                <span class="progress-icon progress-icon-mid"></span>
+                <span class="progress-icon progress-icon-strong"></span>
+              </div>
+              <div class="stats-grid">
+                <article>
+                  <span>Completed</span>
+                  <strong id="progress-completed">0/0</strong>
+                </article>
+                <article>
+                  <span>Progress</span>
+                  <strong id="progress-rate">0%</strong>
+                </article>
+                <article>
+                  <span>Status</span>
+                  <strong id="summary-priority">Ready to start</strong>
+                </article>
+              </div>
+              <p id="progress-note" class="dashboard-note"></p>
+            </article>
+
+            <article class="panel">
+              <div class="block-head">
+                <h3>Today's Study Tasks</h3>
+              </div>
+              <div id="today-tasks" class="task-list"></div>
+            </article>
+          </section>
+
+          <section class="dashboard-column">
+            <article class="panel">
+              <div class="block-head">
+                <h3>Plan Snapshot</h3>
+              </div>
+              <div id="empty-state" class="empty-state">
+                <p>Generate a study plan, revise a saved note, or jump to today's next task to start building momentum.</p>
+              </div>
+              <div id="results" class="results hidden">
+                <article class="summary-card">
+                  <p class="mini-label">Study mission</p>
+                  <h4 id="summary-goal"></h4>
+                  <p id="summary-meta"></p>
+                </article>
+
+                <div class="insight-grid">
+                  <article>
+                    <span>Mode</span>
+                    <strong id="summary-style"></strong>
+                  </article>
+                  <article>
+                    <span>Weekly rhythm</span>
+                    <strong id="summary-rhythm"></strong>
+                  </article>
+                  <article>
+                    <span>Reminder</span>
+                    <strong id="summary-reminder"></strong>
+                  </article>
+                </div>
+
+                <article class="coach-card">
+                  <p class="mini-label">AI Coach Note</p>
+                  <p id="coach-note"></p>
+                </article>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="block-head">
+                <h3>Quick Notes</h3>
+              </div>
+              <textarea id="quick-note-input" class="notes-input" rows="5" placeholder="Write today's study reflections, mistakes, or revision notes..."></textarea>
+              <button type="button" id="save-note-button" class="primary-button full-width">Save Note</button>
+            </article>
+          </section>
+        </div>
+      </section>
+
+      <section id="page-generate" class="app-page hidden">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">Generate Plan</p>
+            <h2>Create a new study roadmap</h2>
+          </div>
+        </div>
+
+        <div class="planner-layout">
+          <form id="study-form" class="panel planner-form planner-form-locked">
+            <div id="planner-lock" class="planner-lock">
+              <strong>Login required</strong>
+              <p>Sign up or login from the navbar to start entering your study details.</p>
+            </div>
+
+            <label>
+              Study goal
+              <input type="text" id="goal" name="goal" placeholder="e.g. Crack my biology midterm" required>
+            </label>
+
+            <label>
+              Subjects or topics
+              <textarea id="topics" name="topics" rows="4" placeholder="Cell structure, genetics, enzymes, diagrams" required></textarea>
+            </label>
+
+            <div class="split">
+              <label>
+                Target date
+                <input type="date" id="deadline" name="deadline" required>
+              </label>
+
+              <label>
+                Hours per week
+                <input type="number" id="hours" name="hours" min="1" max="80" value="10" required>
+              </label>
+            </div>
+
+            <div class="split">
+              <label>
+                Study style
+                <select id="style" name="style">
+                  <option value="balanced">Balanced</option>
+                  <option value="deep">Deep focus</option>
+                  <option value="sprint">High intensity sprint</option>
+                  <option value="gentle">Gentle consistency</option>
+                </select>
+              </label>
+
+              <label>
+                Hardest area
+                <input type="text" id="challenge" name="challenge" placeholder="e.g. remembering pathways">
+              </label>
+            </div>
+
+            <div class="split">
+              <label>
+                Reminder time
+                <input type="time" id="reminder-time" name="reminderTime" value="18:00">
+              </label>
+
+              <label>
+                Reminder cadence
+                <select id="reminder-mode" name="reminderMode">
+                  <option value="daily">Daily reminder</option>
+                  <option value="session">Only on session days</option>
+                  <option value="weekly">Weekly check-in</option>
+                </select>
+              </label>
+            </div>
+
+            <button type="submit" class="primary-button full-width">Generate AI Plan</button>
+          </form>
+
+          <section class="panel">
+            <div class="block-head">
+              <h3>Generated Plan</h3>
+            </div>
+
+            <section class="plan-block">
+              <div class="block-head">
+                <h4>Milestones</h4>
+              </div>
+              <div id="milestones" class="chip-list"></div>
+            </section>
+
+            <section class="plan-block">
+              <div class="block-head">
+                <h4>Weekly Schedule</h4>
+              </div>
+              <div id="schedule" class="schedule-list"></div>
+            </section>
+
+            <section class="plan-block">
+              <div class="block-head">
+                <h4>Study Methods</h4>
+              </div>
+              <div id="methods" class="method-list"></div>
+            </section>
+          </section>
+        </div>
+      </section>
+
+      <section id="page-progress" class="app-page hidden">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">Progress</p>
+            <h2>Detailed Progress</h2>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel">
+            <div class="block-head">
+              <h3>Weak Area Tracking</h3>
+            </div>
+            <div id="weak-areas" class="weak-area-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="block-head">
+              <h3>Auto Reschedule</h3>
+            </div>
+            <p id="reschedule-note" class="dashboard-note"></p>
+            <div id="reschedule-list" class="reminder-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="block-head">
+              <h3>Reminders</h3>
+            </div>
+            <p id="reminder-note" class="dashboard-note"></p>
+            <div id="reminder-list" class="reminder-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="block-head">
+              <h3>Completion Breakdown</h3>
+            </div>
+            <div class="stats-grid detailed">
+              <article>
+                <span>Completed Sessions</span>
+                <strong id="detail-completed">0</strong>
+              </article>
+              <article>
+                <span>Pending Sessions</span>
+                <strong id="detail-pending">0</strong>
+              </article>
+              <article>
+                <span>Rescheduled</span>
+                <strong id="detail-rescheduled">0</strong>
+              </article>
+              <article>
+                <span>Missed Count</span>
+                <strong id="detail-missed">0</strong>
+              </article>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="page-notes" class="app-page hidden">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">Notes</p>
+            <h2>Study notes and reflections</h2>
+          </div>
+        </div>
+
+        <div class="notes-layout">
+          <article class="panel">
+            <div class="block-head">
+              <h3>Write a note</h3>
+            </div>
+            <textarea id="notes-page-input" class="notes-input" rows="10" placeholder="Capture formulas, mistakes, revision ideas, and what to focus on next."></textarea>
+            <button type="button" id="save-note-page-button" class="primary-button full-width">Save Note</button>
+          </article>
+
+          <article class="panel">
+            <div class="block-head">
+              <h3>Saved Notes</h3>
+            </div>
+            <div id="notes-list" class="notes-list"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="auth-modal" class="auth-modal hidden" aria-hidden="true">
+    <div class="auth-modal-backdrop" data-close-modal="true"></div>
+    <section class="auth-modal-card" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+      <button type="button" id="auth-close" class="auth-close-button" aria-label="Close authentication dialog">x</button>
+      <div class="auth-modal-copy">
+        <p class="eyebrow">Study Account</p>
+        <h2 id="auth-modal-title">Welcome to your focused study dashboard</h2>
+        <p class="auth-intro">Sign up or login to save your learner profile, notes, and plan progress.</p>
+      </div>
+
+      <div class="auth-tabs" role="tablist" aria-label="Authentication options">
+        <button type="button" class="auth-tab" data-auth-view="signup">Sign Up</button>
+        <button type="button" class="auth-tab active" data-auth-view="login">Login</button>
+      </div>
+
+      <form id="signup-form" class="auth-form hidden">
+        <label>
+          Full name
+          <input type="text" id="signup-name" name="name" placeholder="e.g. Aisha Khan" required>
+        </label>
+        <label>
+          Email
+          <input type="email" id="signup-email" name="email" placeholder="you@example.com" required>
+        </label>
+        <label>
+          Password
+          <input type="password" id="signup-password" name="password" placeholder="Create a password" minlength="6" required>
+        </label>
+        <label>
+          Study level
+          <select id="signup-level" name="level">
+            <option value="School">School</option>
+            <option value="College">College</option>
+            <option value="University">University</option>
+            <option value="Self-paced learner">Self-paced learner</option>
+          </select>
+        </label>
+        <button type="submit" class="primary-button full-width">Create account</button>
+      </form>
+
+      <form id="login-form" class="auth-form">
+        <label>
+          Email
+          <input type="email" id="login-email" name="email" placeholder="you@example.com" required>
+        </label>
+        <label>
+          Password
+          <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+        </label>
+        <button type="submit" class="primary-button full-width">Login</button>
+      </form>
+
+      <p id="auth-message" class="auth-message" aria-live="polite"></p>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

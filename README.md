@@ -34,13 +34,13 @@ Screenshots of the project are available in the `screenshots` folder showing:
 ## 📸 Screenshots
 
 ### Home Page
-![Home](screenshots/home.png)
+![Home](screenshots/home_page.png)
 
 ### Dashboard
 ![Dashboard](screenshots/dashboard.png)
 
 ### Studyoveriew Page
-![Study Plan](screenshots/studyoverview.png)
+![Study Plan](screenshots/study_overview.png)
 
 ### Progress Tracking
 ![Progress](screenshots/progress.png)

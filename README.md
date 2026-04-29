@@ -3,6 +3,7 @@
 AI Study Planner is a simple web-based application designed to help students organize their study schedule, manage tasks, track progress, and improve productivity using a structured planning system.
 
 🌐 Live Demo: https://naga-lakshmi10.github.io/ai-study-planner-DTI/ 
+
 🔗 Click the link above to explore the live application.
 
 ## 🚀 Project Overview
@@ -22,14 +23,19 @@ This project is developed as part of the DTI Full Stack Development Lab Project.
 - JavaScript
 
 ## 📁 Project Structure
+```plaintext
 ai-study-planner-DTI/
+│
 ├── index.html
-├── style.css
+├── styles.css
 ├── script.js
-├── screenshots/
-├── AI_Powered_Study_Planner.pptx
+├── README.md
+├── DOCUMENTATION.md
 ├── AI_Study_planner_Documentation.pdf
-└── DOCUMENTATION.md
+├── AI_Powered_Study_planner.pptx
+├── AI_Powered_Study_planner(ppt).pdf
+├── screenshots/
+```
 
 ## 📸 Screenshots
 Screenshots of the project are available in the `screenshots` folder showing:

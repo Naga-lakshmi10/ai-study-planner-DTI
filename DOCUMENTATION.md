@@ -127,6 +127,8 @@ ai-study-planner-DTI/
 ├── README.md
 ├── DOCUMENTATION.md
 ├── AI_Study_Planner_Documentation.pdf
+├── AI_Powered_Study_Planner(ppt).pdf
+├── AI_Powered_Study_Planner.pptx
 ├── screenshots/
 │   ├── dashboard.png
 │   ├── generate_plan.png

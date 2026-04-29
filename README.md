@@ -57,7 +57,5 @@ To design and develop a simple AI-based study planner that helps students manage
 
 ## 👩‍💻 Author
 Naga Lakshmi  
-DTI Full Stack Development Project
 
-## 📌 Note
-This project is created for academic purposes only.
+

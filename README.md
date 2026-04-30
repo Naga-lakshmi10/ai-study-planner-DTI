@@ -62,6 +62,6 @@ Screenshots of the project are available in the `screenshots` folder showing:
 To design and develop a simple AI-based study planner that helps students manage time effectively, stay organized, and track academic progress.
 
 ## 👩‍💻 Author
-Naga Lakshmi  
+Naga Lakshmi Karri
 
 
